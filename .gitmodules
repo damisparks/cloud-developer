@@ -1,0 +1,7 @@
+[submodule "project-3/udagram-api/udagram-feed"]
+	path = P2/udagram-api/udagram-feed
+	url = https://github.com/damisparks/udagram-feed
+
+[submodule "project-3/udagram-api/udagram-users"]
+	path = project-3/udagram-api/udagram-users
+	url = https://github.com/damisparks/udagram-users
