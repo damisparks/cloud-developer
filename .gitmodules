@@ -1,7 +1,8 @@
-[submodule "project-3/udagram-apis/udagram-feed"]
-	path = project-3/udagram-apis/udagram-feed
-	url = https://github.com/damisparks/udagram-feed
-
 [submodule "project-3/udagram-apis/udagram-users"]
 	path = project-3/udagram-apis/udagram-users
-	url = https://github.com/damisparks/udagram-users
+	url = https://github.com/damisparks/udagram-users.git
+	branch = master
+[submodule "project-3/udagram-apis/udagram-feed"]
+	path = project-3/udagram-apis/udagram-feed
+	url = https://github.com/damisparks/udagram-feed.git
+	branch = master
