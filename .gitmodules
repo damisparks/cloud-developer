@@ -10,3 +10,7 @@
 	path = project-3/udagram_reverse_proxy
 	url = https://github.com/damisparks/udagram_reverse_proxy.git
 	branch = master
+[submodule "project-3/udagram_frontend"]
+	path = project-3/udagram_frontend
+	url = https://github.com/damisparks/udagram_frontend.git
+	branch = master
