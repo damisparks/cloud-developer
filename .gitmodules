@@ -1,16 +1,4 @@
-[submodule "project-3/udagram-apis/udagram-users"]
-	path = project-3/udagram-apis/udagram-users
-	url = https://github.com/damisparks/udagram-users.git
-	branch = master
-[submodule "project-3/udagram-apis/udagram-feed"]
-	path = project-3/udagram-apis/udagram-feed
-	url = https://github.com/damisparks/udagram-feed.git
-	branch = master
-[submodule "project-3/udagram_reverse_proxy"]
-	path = project-3/udagram_reverse_proxy
-	url = https://github.com/damisparks/udagram_reverse_proxy.git
-	branch = master
-[submodule "project-3/udagram_frontend"]
-	path = project-3/udagram_frontend
-	url = https://github.com/damisparks/udagram_frontend.git
+[submodule "project-3/udagram"]
+	path = project-3/udagram
+	url = https://github.com/damisparks/udagram.git
 	branch = master
