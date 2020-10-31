@@ -1,5 +1,6 @@
 const path = require('path');
 const slsw = require('serverless-webpack');
+const webpack = require('webpack');
 
 module.exports = {
   mode: slsw.lib.webpack.isLocal ? 'development' : 'production',
@@ -22,4 +23,9 @@ module.exports = {
     },
     ]
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.browser': 'true'
+    }),
+  ]
 };
