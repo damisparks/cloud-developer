@@ -24,6 +24,7 @@ provider:
     THUMBNAILS_S3_BUCKET: damisparks-serverless-udagram-thumbnail-${self:provider.stage}
     IMAGE_S3_BUCKET: damisparks-serverless-udagram-images-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
+    AUTH_0_SECRET: k62Ln7_R8_eBaWjjbYkpl3W4KgqIw59WTyBoEp2OJIUIBnkLJNEJ5eGCGEsYuCQP
 
   iamRoleStatements:
     - Effect: Allow

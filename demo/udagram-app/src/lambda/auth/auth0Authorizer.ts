@@ -4,15 +4,19 @@ import {
     APIGatewayAuthorizerResult
 } from 'aws-lambda'
 import 'source-map-support/register'
+import { verify } from 'jsonwebtoken';
+import { JwtToken } from '../../auth/JwtToken'
+
+const auth0Secret = process.env.AUTH_0_SECRET
 
 export const handler: APIGatewayAuthorizerHandler = async (
     event: APIGatewayTokenAuthorizerEvent
 ): Promise<APIGatewayAuthorizerResult> => {
     try {
-        verifyToken(event.authorizationToken)
+        const decodeToken =  verifyToken(event.authorizationToken)
         console.log('User was authorized')
         return {
-            principalId: 'user',
+            principalId: decodeToken.sub,
             policyDocument: {
                 Version: '2012-10-17',
                 Statement: [
@@ -42,7 +46,7 @@ export const handler: APIGatewayAuthorizerHandler = async (
     }
 }
 
-function verifyToken(authHeader: string) {
+function verifyToken(authHeader: string): JwtToken {
     if (!authHeader) {
         throw new Error('No authentication header')
     }
@@ -50,8 +54,6 @@ function verifyToken(authHeader: string) {
         throw new Error('Invalid authentication header')
     const split = authHeader.split(' ')
     const token = split[1]
-
-    if(token !== '123'){
-        throw new Error('Invalid token')   
-    }
+    
+    return verify(token, auth0Secret) as JwtToken
 }
