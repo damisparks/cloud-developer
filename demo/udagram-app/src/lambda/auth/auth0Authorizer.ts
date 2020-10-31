@@ -4,16 +4,21 @@ import {
     APIGatewayAuthorizerResult
 } from 'aws-lambda'
 import 'source-map-support/register'
+import * as AWS from 'aws-sdk'
 import { verify } from 'jsonwebtoken';
 import { JwtToken } from '../../auth/JwtToken'
 
-const auth0Secret = process.env.AUTH_0_SECRET
+const secretId = process.env.AUTH_0_SECRET_ID
+const secretField = process.env.AUTH_0_SECRET_FIELD
+
+const client = new AWS.SecretsManager()
+let cachedSecret: string
 
 export const handler: APIGatewayAuthorizerHandler = async (
     event: APIGatewayTokenAuthorizerEvent
 ): Promise<APIGatewayAuthorizerResult> => {
     try {
-        const decodeToken =  verifyToken(event.authorizationToken)
+        const decodeToken = await verifyToken(event.authorizationToken)
         console.log('User was authorized')
         return {
             principalId: decodeToken.sub,
@@ -46,7 +51,7 @@ export const handler: APIGatewayAuthorizerHandler = async (
     }
 }
 
-function verifyToken(authHeader: string): JwtToken {
+async function verifyToken(authHeader: string): Promise<JwtToken> {
     if (!authHeader) {
         throw new Error('No authentication header')
     }
@@ -54,6 +59,20 @@ function verifyToken(authHeader: string): JwtToken {
         throw new Error('Invalid authentication header')
     const split = authHeader.split(' ')
     const token = split[1]
+
+    const secretObject : any = await getSecret()
+    const secret = secretObject[secretField]
     
-    return verify(token, auth0Secret) as JwtToken
+    return verify(token, secret) as JwtToken
+}
+
+async function getSecret() {
+  if(cachedSecret) return cachedSecret
+
+  const data = await client.getSecretValue({
+    SecretId: secretId
+  }).promise()
+
+  cachedSecret = data.SecretString
+  return JSON.parse(cachedSecret)
 }
