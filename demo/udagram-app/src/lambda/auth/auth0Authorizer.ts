@@ -3,7 +3,7 @@ import {
     APIGatewayAuthorizerResult
 } from 'aws-lambda'
 import 'source-map-support/register'
-import { verify } from 'jsonwebtoken';
+import { verify } from 'jsonwebtoken'
 import { JwtToken } from '../../auth/JwtToken'
 
 import * as middy from 'middy'
