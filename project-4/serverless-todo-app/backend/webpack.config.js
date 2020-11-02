@@ -1,5 +1,6 @@
 const path = require('path');
 const slsw = require('serverless-webpack');
+const webpack = require('webpack');
 // var nodeExternals = require('webpack-node-externals')
 
 module.exports = {
@@ -19,7 +20,13 @@ module.exports = {
   module: {
     rules: [
       // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
-      { test: /\.tsx?$/, loader: 'ts-loader' },
+      { test: /\.tsx?$/, loader: 'ts-loader',
+      options: {transpileOnly: true} },
     ],
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.browser': 'true'
+    }),
+  ]
 };
