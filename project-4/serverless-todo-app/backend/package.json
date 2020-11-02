@@ -1,7 +1,11 @@
 {
-  "name": "serverless-todo-app",
+  "name": "damisparks-serverless-todo-app",
   "version": "1.0.0",
-  "description": "Serverless TODO image app",
+  "description": "Serverless TODO Image app",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "sls deploy -v"
+  },
   "dependencies": {
     "@types/axios": "^0.14.0",
     "@types/http-errors": "^1.6.1",
