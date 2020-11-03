@@ -5,6 +5,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } f
 
 import { CreateTodoRequest } from '../../requests/CreateTodoRequest'
 import { TodoItem } from '../../models/TodoItem'
+import { getUserId } from '../utils'
 const docClient = new AWS.DynamoDB.DocumentClient()
 const todosTable = process.env.TODOS_TABLE
 
@@ -16,12 +17,11 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 
   const item: TodoItem = {
     todoId : todoId,
-    userId: 'fakeuserid',
+    userId: getUserId(event),
     name: newTodoItem.name,
     dueDate: newTodoItem.dueDate,
     done: false,
     createdAt: new Date().toISOString()
-    // ...newTodoItem
   }
 
   await docClient.put({
