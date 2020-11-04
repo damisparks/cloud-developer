@@ -1,5 +1,6 @@
-import { APIGatewayEvent } from "aws-lambda"
 import * as uuid from "uuid"
+import { APIGatewayEvent } from "aws-lambda"
+
 import { TodoAccess } from "../dataLayer/todoAccess"
 import { getUserId } from "../lambda/utils"
 import { TodoItem } from "../models/TodoItem"
@@ -7,8 +8,8 @@ import { CreateTodoRequest } from "../requests/CreateTodoRequest"
 
 const todoAccess = new TodoAccess()
 
-export async function getAllTodos(): Promise<TodoItem[]> {
-  return todoAccess.getAllTodos()
+export async function getAllTodos(userId: string): Promise<TodoItem[]> {
+  return todoAccess.getAllTodos(userId)
 }
 
 export async function createTodoItem(
@@ -24,6 +25,6 @@ export async function createTodoItem(
     name: createATodoItem.name,
     done: createATodoItem.done,
     createdAt: new Date().toISOString(),
-    dueDate: createATodoItem.dueDate,
+    dueDate: createATodoItem.dueDate
   })
 }
