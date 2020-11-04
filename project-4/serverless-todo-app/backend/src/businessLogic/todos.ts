@@ -23,8 +23,9 @@ export async function createTodoItem(
     todoId: itemId,
     userId: userId,
     name: createATodoItem.name,
-    done: createATodoItem.done,
+    done: false,
     createdAt: new Date().toISOString(),
-    dueDate: createATodoItem.dueDate
+    dueDate: createATodoItem.dueDate,
+    attachmentUrl: "tobeImplemented"
   })
 }
