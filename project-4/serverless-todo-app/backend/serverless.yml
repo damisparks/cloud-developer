@@ -31,6 +31,12 @@ provider:
   iamRoleStatements:
     - Effect: Allow
       Action:
+        - "xray:PutTraceSegments"
+        - "xray:PutTelemetryRecords"
+      Resource:
+        - "*"
+    - Effect: Allow
+      Action:
         - dynamodb:Scan
         - dynamodb:PutItem
       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
@@ -105,6 +111,20 @@ functions:
       - http:
           method: post
           path: todos/{todoId}/attachment
+          cors: true
+    iamRoleStatementsName: GenerateUploadUrl-${self:provider.stage}-lambdaRole
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - "xray:PutTraceSegments"
+          - "xray:PutTelemetryRecords"
+        Resource:
+          - "*"
+      - Effect: Allow
+        Action:
+          - s3:PutObject
+          - s3:GetObject
+        Resource: arn:aws:s3:::${self:provider.environment.IMAGE_S3_BUCKET}/*
 
   # TODO: Add any necessary AWS resources
 resources:
@@ -144,3 +164,21 @@ resources:
                 KeyType: RANGE
             Projection:
               ProjectionType: ALL
+
+    AttachmentsBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:provider.environment.IMAGE_S3_BUCKET}
+        CorsConfiguration:
+          CorsRules:
+            - AllowedOrigins:
+                - "*"
+              AllowedHeaders:
+                - "*"
+              AllowedMethods:
+                - GET
+                - PUT
+                - POST
+                - DELETE
+                - HEAD
+              MaxAge: 3000

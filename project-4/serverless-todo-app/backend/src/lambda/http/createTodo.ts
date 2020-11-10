@@ -14,7 +14,7 @@ export const handler: APIGatewayProxyHandler = async (
   const newTodoItem: CreateTodoRequest = JSON.parse(event.body)
   console.log("Processing newTodoItem: ", newTodoItem)
 
-  const item = await createTodoItem(newTodoItem, event)
+  const item = await createTodoItem({ createATodoItem: newTodoItem, event })
 
   console.log("TODO : ", item)
   return {
