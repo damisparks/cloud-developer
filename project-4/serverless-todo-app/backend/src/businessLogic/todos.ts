@@ -30,8 +30,7 @@ export async function createTodoItem({
     name: createATodoItem.name,
     done: false,
     createdAt: new Date().toISOString(),
-    dueDate: createATodoItem.dueDate,
-    attachmentUrl: "tobeImplemented"
+    dueDate: createATodoItem.dueDate
   })
 }
 
