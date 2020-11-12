@@ -87,13 +87,13 @@ functions:
             requestModels:
               "application/json": TodoRequest
 
-  # # TODO: Configure this function
-  # UpdateTodo:
-  #   handler: src/lambda/http/updateTodo.handler
-  #   events:
-  #     - http:
-  #         method: patch
-  #         path: todos/{todoId}
+  # TODO: Configure this function
+  UpdateTodo:
+    handler: src/lambda/http/updateTodo.handler
+    events:
+      - http:
+          method: patch
+          path: todos/{todoId}
 
   # # TODO: Configure this function
   # DeleteTodo:
