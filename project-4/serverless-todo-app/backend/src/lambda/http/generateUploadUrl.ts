@@ -13,7 +13,7 @@ export const handler: APIGatewayProxyHandler = async (
 ): Promise<APIGatewayProxyResult> => {
   const todoId = event.pathParameters.todoId
   // const userId = getUserId(event)
-  const preSignedUrl = await generatePresignedUrl(todoId)
+  const uploadUrl = await generatePresignedUrl(todoId)
 
   // TODO: Return a presigned URL to upload a file for a TODO item with the provided id
   return {
@@ -22,7 +22,7 @@ export const handler: APIGatewayProxyHandler = async (
       "Access-Control-Allow-Origin": "*"
     },
     body: JSON.stringify({
-      preSignedUrl
+      uploadUrl
     })
   }
 }
