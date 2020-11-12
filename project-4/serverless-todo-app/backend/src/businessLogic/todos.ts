@@ -8,14 +8,19 @@ import { CreateTodoRequest } from "../requests/CreateTodoRequest"
 
 const todoAccess = new TodoAccess()
 
+// Get User's Todos
 export async function getAllTodos(userId: string): Promise<TodoItem[]> {
   return todoAccess.getAllTodos(userId)
 }
 
-export async function createTodoItem(
-  createATodoItem: CreateTodoRequest,
+// Create Todo Item
+export async function createTodoItem({
+  createATodoItem,
+  event
+}: {
+  createATodoItem: CreateTodoRequest
   event: APIGatewayEvent
-): Promise<TodoItem> {
+}): Promise<TodoItem> {
   const itemId = uuid.v4()
   const userId = getUserId(event)
 
@@ -25,7 +30,11 @@ export async function createTodoItem(
     name: createATodoItem.name,
     done: false,
     createdAt: new Date().toISOString(),
-    dueDate: createATodoItem.dueDate,
-    attachmentUrl: "tobeImplemented"
+    dueDate: createATodoItem.dueDate
   })
+}
+
+// Generate PreSignedUrl
+export async function generatePresignedUrl(todoId: string) {
+  return todoAccess.generateUploadUrl(todoId)
 }
