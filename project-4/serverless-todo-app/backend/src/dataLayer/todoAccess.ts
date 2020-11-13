@@ -90,4 +90,22 @@ export class TodoAccess {
       })
       .promise()
   }
+
+  /**
+   * @returns GET ITEMS BY ID.
+   */
+  async getItemByTodoItemId(todoId: string, userId: string) {
+    console.log("Getting Todo Item : ", todoId)
+    const result = await this.docClient
+      .get({
+        TableName: this.todosTable,
+        Key: {
+          todoId: todoId,
+          userId: userId
+        }
+      })
+      .promise()
+    console.log(" Get Items by id : ", result)
+    return result.Item as TodoItem
+  }
 }

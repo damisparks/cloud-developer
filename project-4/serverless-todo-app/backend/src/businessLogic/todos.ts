@@ -48,3 +48,7 @@ export async function updateTodo(
 ) {
   return await todoAccess.updateTodo(todoId, userId, updateTodoItem)
 }
+
+export async function getItemById(todoId: string, userId: string) {
+  return await todoAccess.getItemByTodoItemId(todoId, userId)
+}

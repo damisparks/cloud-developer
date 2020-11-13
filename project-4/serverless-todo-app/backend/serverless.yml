@@ -56,6 +56,9 @@ custom:
       - name: TodoRequest
         contentType: application/json
         schema: ${file(models/create-todo-request.json)}
+      - name: TodoUpdate
+        contentType: application/json
+        schema: ${file(models/update-todo-request.json)}
 
 functions:
   Auth:
@@ -94,7 +97,21 @@ functions:
       - http:
           method: patch
           path: todos/{todoId}
-
+          authorizer: Auth
+          cors: true
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Update a todo
+            description: Update a todo
+            requestModels:
+              "application/json": TodoUpdate
+    iamRoleStatementsName: UpdateTodo-${self:provider.stage}-lambdaRole
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:GetItem
+          - dynamodb:UpdateItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
   # # TODO: Configure this function
   # DeleteTodo:
   #   handler: src/lambda/http/deleteTodo.handler
