@@ -49,6 +49,12 @@ export async function updateTodo(
   return await todoAccess.updateTodo(todoId, userId, updateTodoItem)
 }
 
+// Get item by Todo Item Id.
 export async function getItemById(todoId: string, userId: string) {
   return await todoAccess.getItemByTodoItemId(todoId, userId)
+}
+
+// Delete item by id.
+export async function deleteItem(todoId: string, userId: string) {
+  return await todoAccess.deleteTodoItem(todoId, userId)
 }
