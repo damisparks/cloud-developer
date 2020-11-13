@@ -5,7 +5,7 @@ import {
   APIGatewayProxyResult,
   APIGatewayProxyHandler
 } from "aws-lambda"
-// import { getUserId } from "../utils"
+
 import { generatePresignedUrl } from "../../businessLogic/todos"
 
 export const handler: APIGatewayProxyHandler = async (

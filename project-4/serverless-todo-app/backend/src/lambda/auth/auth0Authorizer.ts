@@ -67,10 +67,10 @@ async function verifyToken(authHeader: string): Promise<JwtPayload> {
     const key = data.data["keys"][0]["x5c"][0]
     const cert = `-----BEGIN CERTIFICATE-----\n${key}\n-----END CERTIFICATE-----`
     const isVerifedToken = verify(token, cert, { algorithms: ["RS256"] })
-    console.log("Verified token: ", isVerifedToken)
+    logger.info("Verified token: ", isVerifedToken)
     return isVerifedToken as JwtPayload
   } catch (error) {
-    console.log("Parsing failed : ", error)
+    logger.info("Parsing failed : ", error)
     throw new Error(`Parsing failed : ${error}`)
   }
 }

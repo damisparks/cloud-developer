@@ -6,17 +6,19 @@ import {
 } from "aws-lambda"
 import { CreateTodoRequest } from "../../requests/CreateTodoRequest"
 import { createTodoItem } from "../../businessLogic/todos"
+import { createLogger } from "../../utils/logger"
+
+const logger = createLogger("createTodo")
 
 export const handler: APIGatewayProxyHandler = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
-  //  Implement creating a new TODO item
   const newTodoItem: CreateTodoRequest = JSON.parse(event.body)
-  console.log("Processing newTodoItem: ", newTodoItem)
+  logger.info("Processing newTodoItem: ", newTodoItem)
 
   const item = await createTodoItem({ createATodoItem: newTodoItem, event })
 
-  console.log("TODO : ", item)
+  logger.info("TODO : ", item)
   return {
     statusCode: 201,
     headers: {

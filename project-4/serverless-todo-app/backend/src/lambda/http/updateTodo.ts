@@ -20,8 +20,6 @@ export const handler: APIGatewayProxyHandler = async (
   const userId = getUserId(event)
   const updatedTodo: UpdateTodoRequest = JSON.parse(event.body)
 
-  // TODO: Update a TODO item with the provided id using values in the "updatedTodo" object
-
   // Check if item exists
   const itemExists = await getItemById(todoId, userId)
 

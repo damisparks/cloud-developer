@@ -6,12 +6,15 @@ import {
 import "source-map-support/register"
 
 import { getAllTodos } from "../../businessLogic/todos"
+import { createLogger } from "../../utils/logger"
 import { getUserId } from "../utils"
+
+const logger = createLogger("getTodos")
 
 export const handler: APIGatewayProxyHandler = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
-  console.log("Processing event: ", event)
+  logger.info("Processing event: ", event)
 
   // TODO: Get all TODO items for a current user
   const userId = getUserId(event)

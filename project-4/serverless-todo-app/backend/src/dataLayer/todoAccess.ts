@@ -1,13 +1,19 @@
 import * as AWS from "aws-sdk"
+const AWSXRay = require("aws-xray-sdk")
+// import * as AWSXRay from "aws-xray-sdk"
 import { S3 } from "aws-sdk"
 import { DocumentClient } from "aws-sdk/clients/dynamodb"
 import { TodoItem } from "../models/TodoItem"
 import { TodoUpdate } from "../models/TodoUpdate"
+import { createLogger } from "../utils/logger"
+
+const logger = createLogger("todoAccess")
+const XAWS = AWSXRay.captureAWS(AWS)
 
 export class TodoAccess {
   constructor(
     private readonly s3: S3 = new AWS.S3({ signatureVersion: "v4" }),
-    private readonly docClient: DocumentClient = new AWS.DynamoDB.DocumentClient(),
+    private readonly docClient: DocumentClient = createDynamoDBClient(),
     private readonly todosTable = process.env.TODOS_TABLE,
     private readonly userIdIndex = process.env.USER_ID_INDEX,
     private readonly urlExpiration: string = process.env.SIGNED_URL_EXPIRATION,
@@ -19,7 +25,7 @@ export class TodoAccess {
    */
 
   async getAllTodos(userId): Promise<TodoItem[]> {
-    console.log("Getting all todos")
+    logger.info("Getting all todos")
     const result = await this.docClient
       .query({
         TableName: this.todosTable,
@@ -39,7 +45,7 @@ export class TodoAccess {
    * @returns created todo item.
    */
   async createTodo(todo: TodoItem): Promise<TodoItem> {
-    console.log("Creating a todo : ", todo.todoId)
+    logger.info("Creating a todo : ", todo.todoId)
 
     todo.attachmentUrl = `https://${this.bucketName}.s3.amazonaws.com/${todo.todoId}`
     await this.docClient
@@ -49,7 +55,7 @@ export class TodoAccess {
       })
       .promise()
 
-    console.log("Todo created : ", todo)
+    logger.info("Todo created : ", todo)
     return todo as TodoItem
   }
 
@@ -68,7 +74,7 @@ export class TodoAccess {
    * @returns UPDATE TODO
    */
   async updateTodo(todoId: string, userId: string, updateTodoItem: TodoUpdate) {
-    console.log(`to update todoItem :  ${todoId}`)
+    logger.info(`to update todoItem :  ${todoId}`)
     await this.docClient
       .update({
         TableName: this.todosTable,
@@ -95,7 +101,7 @@ export class TodoAccess {
    * @returns GET ITEMS BY ID.
    */
   async getItemByTodoItemId(todoId: string, userId: string) {
-    console.log("Getting Todo Item : ", todoId)
+    logger.info("Getting Todo Item : ", todoId)
     const result = await this.docClient
       .get({
         TableName: this.todosTable,
@@ -105,13 +111,13 @@ export class TodoAccess {
         }
       })
       .promise()
-    console.log(" Get Items by id : ", result)
+    logger.info(" Get Items by id : ", result)
     return result.Item as TodoItem
   }
 
   // Delete item.
   async deleteTodoItem(todoId: string, userId: string) {
-    console.log("Deleting todo with id : ", todoId)
+    logger.info("Deleting todo with id : ", todoId)
     await this.docClient
       .delete({
         TableName: this.todosTable,
@@ -122,4 +128,8 @@ export class TodoAccess {
       })
       .promise()
   }
+}
+// Add Dynamo DB ClientX
+function createDynamoDBClient(): DocumentClient {
+  return new XAWS.DynamoDB.DocumentClient()
 }
