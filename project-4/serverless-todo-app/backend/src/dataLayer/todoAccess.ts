@@ -2,6 +2,7 @@ import * as AWS from "aws-sdk"
 import { S3 } from "aws-sdk"
 import { DocumentClient } from "aws-sdk/clients/dynamodb"
 import { TodoItem } from "../models/TodoItem"
+import { TodoUpdate } from "../models/TodoUpdate"
 
 export class TodoAccess {
   constructor(
@@ -61,5 +62,50 @@ export class TodoAccess {
       Key: todoId,
       Expires: parseInt(this.urlExpiration)
     })
+  }
+
+  /**
+   * @returns UPDATE TODO
+   */
+  async updateTodo(todoId: string, userId: string, updateTodoItem: TodoUpdate) {
+    console.log(`to update todoItem :  ${todoId}`)
+    await this.docClient
+      .update({
+        TableName: this.todosTable,
+        Key: {
+          todoId: todoId,
+          userId: userId
+        },
+        UpdateExpression: "set #name = :name, #dueDate = :due, #done= :d",
+        ExpressionAttributeValues: {
+          ":name": updateTodoItem.name,
+          ":due": updateTodoItem.dueDate,
+          ":d": updateTodoItem.done
+        },
+        ExpressionAttributeNames: {
+          "#name": "name",
+          "#dueDate": "dueDate",
+          "#done": "done"
+        }
+      })
+      .promise()
+  }
+
+  /**
+   * @returns GET ITEMS BY ID.
+   */
+  async getItemByTodoItemId(todoId: string, userId: string) {
+    console.log("Getting Todo Item : ", todoId)
+    const result = await this.docClient
+      .get({
+        TableName: this.todosTable,
+        Key: {
+          todoId: todoId,
+          userId: userId
+        }
+      })
+      .promise()
+    console.log(" Get Items by id : ", result)
+    return result.Item as TodoItem
   }
 }

@@ -5,6 +5,7 @@ import { TodoAccess } from "../dataLayer/todoAccess"
 import { getUserId } from "../lambda/utils"
 import { TodoItem } from "../models/TodoItem"
 import { CreateTodoRequest } from "../requests/CreateTodoRequest"
+import { TodoUpdate } from "../models/TodoUpdate"
 
 const todoAccess = new TodoAccess()
 
@@ -37,4 +38,17 @@ export async function createTodoItem({
 // Generate PreSignedUrl
 export async function generatePresignedUrl(todoId: string) {
   return todoAccess.generateUploadUrl(todoId)
+}
+
+// Update todo
+export async function updateTodo(
+  todoId: string,
+  userId: string,
+  updateTodoItem: TodoUpdate
+) {
+  return await todoAccess.updateTodo(todoId, userId, updateTodoItem)
+}
+
+export async function getItemById(todoId: string, userId: string) {
+  return await todoAccess.getItemByTodoItemId(todoId, userId)
 }
