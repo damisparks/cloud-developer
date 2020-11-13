@@ -90,7 +90,7 @@ functions:
             requestModels:
               "application/json": TodoRequest
 
-  # TODO: Configure this function
+  # Update Todo function
   UpdateTodo:
     handler: src/lambda/http/updateTodo.handler
     events:
@@ -112,15 +112,24 @@ functions:
           - dynamodb:GetItem
           - dynamodb:UpdateItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
-  # # TODO: Configure this function
-  # DeleteTodo:
-  #   handler: src/lambda/http/deleteTodo.handler
-  #   events:
-  #     - http:
-  #         method: delete
-  #         path: todos/{todoId}
 
-  # TODO: Configure this function
+  # Delete Todo Function
+  DeleteTodo:
+    handler: src/lambda/http/deleteTodo.handler
+    events:
+      - http:
+          method: delete
+          path: todos/{todoId}
+          cors: true
+          authorizer: Auth
+    iamRoleStatementsName: DeleteTodo-${self:provider.stage}-lambdaRole
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:GetItem
+          - dynamodb:DeleteItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
+
   # Generating GenerateUploadUrl function.
   GenerateUploadUrl:
     handler: src/lambda/http/generateUploadUrl.handler

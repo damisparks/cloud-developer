@@ -108,4 +108,18 @@ export class TodoAccess {
     console.log(" Get Items by id : ", result)
     return result.Item as TodoItem
   }
+
+  // Delete item.
+  async deleteTodoItem(todoId: string, userId: string) {
+    console.log("Deleting todo with id : ", todoId)
+    await this.docClient
+      .delete({
+        TableName: this.todosTable,
+        Key: {
+          userId: userId,
+          todoId: todoId
+        }
+      })
+      .promise()
+  }
 }
