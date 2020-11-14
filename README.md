@@ -8,3 +8,4 @@ The repository contains my course work from the course of Udacity Cloud Develope
 - [x] Project 3: [Udagram: Your Own Instagram on AWS](/project-3)
 - [x] Project 4: [Refactor Monolith to Microservices](/project-4)
 - [x] Project 5: [Serverless Todo App](/project-5/serverless-todo-app)
+- [x] Project 6: [Project Dami](/project-6)
