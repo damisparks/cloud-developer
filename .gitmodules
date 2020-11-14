@@ -1,4 +1,4 @@
-[submodule "project-3/udagram"]
-	path = project-3/udagram
+[submodule "project-4/udagram"]
+	path = project-4/udagram
 	url = https://github.com/damisparks/udagram.git
 	branch = master

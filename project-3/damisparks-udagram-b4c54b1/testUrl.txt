@@ -1,0 +1,15 @@
+Here is the link to the application repo : 
+[Udagram](https://github.com/damisparks/udagram)
+
+## 
+The current application is deployed :
+http://image-filter-dami-dev-dev.eu-west-1.elasticbeanstalk.com/
+
+You can test with the following URL. 
+Make sure you place it after the URL above. 
+
+1.
+/filteredimage?image_url=https://timedotcom.files.wordpress.com/2019/03/kitten-report.jpg
+
+2. 
+/filteredimage?image_url=https://timedotcom.files.wordpress.com/2019/03/kitten-report.jpg
