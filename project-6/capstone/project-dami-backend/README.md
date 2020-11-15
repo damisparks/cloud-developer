@@ -4,15 +4,15 @@ This project was developed using Serverless, Typescript
 ## List Of Task
 ## TODO
 * ## Lambda
-- [] Create table for `discussion`
-- [] Add `discussion` model
-- [] Add `discussion` request model.
-- [] Create table for community
-- [] Add `community` model
-- [] Add `community` request model.
+- [ ] Create table for `discussion`
+- [ ] Add `discussion` model
+- [ ] Add `discussion` request model.
+- [ ] Create table for community
+- [ ] Add `community` model
+- [ ] Add `community` request model.
 
 * ## APIGateway
-- [] Create project dami backend api.
+- [ ] Create project dami backend api.
 
 ### DOING
 - [x] Add create `discussion` lambda
