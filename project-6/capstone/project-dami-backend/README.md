@@ -23,3 +23,4 @@ This project was developed using Serverless, Typescript
 - [x] Create folder `lambda` inside the `src` folder. 
 - [x] Create folder `http` inside the `lambda` folder.
 - [x] Create `createDiscussion.ts` inside the `http` folder.
+- [x] Add `plugins` 

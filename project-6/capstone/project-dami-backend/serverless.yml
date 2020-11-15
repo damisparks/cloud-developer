@@ -1,0 +1,80 @@
+service: dami-sls-api
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+
+# Add the serverless-webpack plugin
+plugins:
+  - serverless-webpack
+  - serverless-aws-documentation
+  - serverless-reqvalidator-plugin
+  - serverless-iam-roles-per-function
+
+package:
+  individually: true
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'eu-west-1'}
+  apiGateway:
+    minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+    DISCUSSION_TABLE : Discussion-${opt:stage, 'dev'}
+
+custom:
+  documentation:
+    api:
+      info:
+        version: v1.0.0
+        title: DamiSparks Serverless API
+        description: Serverless Backed for Udacity Capstone project.
+    models:
+      - name: DiscussionRequest
+        contentType: application/json
+        schema: ${file(models/create-discussion-request.json)}
+
+functions:
+  createDiscussion:
+    name: ${self:service}-createDiscussion-${opt:stage, self:provider.stage, 'dev'}
+    handler: src/lambda/http/createDiscussion.handler
+    description: Create discussion lambda
+    events:
+      - http:
+          method: post
+          path: discussion
+          cors: true
+          reqValidatorName: RequestBodyValidator
+          documentation:  
+            summary: Create a new todo
+            description: Create a new todo
+            requestModels:
+              "application/json": DiscussionRequest
+    iamRoleStatementsName: createDiscussion-${self:provider.stage}-lambdaRole
+    iamRoleStatements:
+      - Effect: Allow
+      Action:
+        - "xray:PutTraceSegments"
+        - "xray:PutTelemetryRecords"
+      Resource:
+        - "*"
+      - Effect: Allow
+      Action:
+        - dynamodb:Scan
+        - dynamodb:PutItem
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.DISCUSSION_TABLE}
+
+resources:
+  Resources:
+    RequestBodyValidator:
+      Type: AWS::ApiGateway::RequestValidator
+      Properties:
+        Name: "request-body-validator"
+        RestApiId:
+          Ref: ApiGatewayRestApi
+        ValidateRequestBody: true
+        ValidateRequestParameters: false
