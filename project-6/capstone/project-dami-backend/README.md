@@ -1,6 +1,7 @@
 # PROJECT DAMI BACKEND
 
-This project was developed using Serverless, Typescript
+This project was developed using Serverless, Typescript.
+Before using the project, kindly read the `LICENSE`
 
 ## List Of Task
 
@@ -26,6 +27,7 @@ This project was developed using Serverless, Typescript
 
 ### DONE
 
+- [x] Add `LICENSE` to the project.
 - [x] Add `uuid` package to the project.
 - [x] Create folder `src`
 - [x] Create folder `lambda` inside the `src` folder.
