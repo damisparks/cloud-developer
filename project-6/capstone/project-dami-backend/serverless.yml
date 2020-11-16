@@ -42,6 +42,7 @@ functions:
     name: ${self:service}-createDiscussion-${opt:stage, self:provider.stage, 'dev'}
     handler: src/lambda/http/createDiscussion.handler
     description: Create discussion lambda
+    package: {}
     events:
       - http:
           method: post
