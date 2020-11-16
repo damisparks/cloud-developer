@@ -1,6 +1,6 @@
 import * as AWS from 'aws-sdk'
 import { DocumentClient } from 'aws-sdk/lib/dynamodb/document_client'
-import { DiscussionItem } from '../models/DiscussionItem'
+import { DiscussionItem } from '../models/discussion'
 
 export class DiscussionAccess {
   constructor(

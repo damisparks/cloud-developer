@@ -22,11 +22,12 @@ Before using the project, kindly read the `LICENSE`
 
 ### DOING
 
-- [x] Add create `discussion` lambda
+- [x] Add Get All `discussion` lambda.
 <!-- * None yet.  -->
 
 ### DONE
-
+- [x] Add create `discussion` lambda
+- [x] Remove `requests` folder and move request model inside the `discussion.ts` and fixed all import issues.
 - [x] Add `winston` package for logging
 - [x] Add `utils` folder and `logger` to the project.
 - [x] Add `LICENSE` to the project.

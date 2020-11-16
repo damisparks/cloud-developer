@@ -1,7 +1,6 @@
 import * as uuid from 'uuid'
 import { DiscussionAccess } from '../dataLayer/discussionAccess'
-import { DiscussionRequest } from '../requests/DiscussionRequest'
-import { DiscussionItem } from '../models/DiscussionItem'
+import { DiscussionItem, DiscussionRequest } from '../models/discussion'
 
 const discussionAccess = new DiscussionAccess()
 

@@ -1,7 +1,7 @@
 import { APIGatewayProxyEvent, APIGatewayProxyHandler } from 'aws-lambda'
 import 'source-map-support/register'
 import { onCreateDiscussion } from '../../businessLogic/discussion'
-import { DiscussionRequest } from '../../requests/DiscussionRequest'
+import { DiscussionRequest } from '../../models/discussion'
 import { createLogger } from '../../utils/logger'
 
 export const handler: APIGatewayProxyHandler = async (
