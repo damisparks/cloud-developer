@@ -8,15 +8,10 @@ Before using the project, kindly read the `LICENSE`
 ## TODO
 
 - ## Lambda
-
-* [ ] Create table for `discussion`
-* [ ] Add `discussion` model
-* [ ] Add `discussion` request model.
-* [ ] Create table for community
-* [ ] Add `community` model
-* [ ] Add `community` request model.
+- [ ] Add Authentication
 
 - ## APIGateway
+- [x]
 
 * [ ] Create project dami backend api.
 
@@ -26,6 +21,16 @@ Before using the project, kindly read the `LICENSE`
 <!-- * None yet.  -->
 
 ### DONE
+- ## APIGateway
+- [x] API Created.
+
+- ## LAMBDA
+* [x] Add `getDiscussions` function in the dataLayer
+* [x] Add `onGetAllDiscussions` function in the businessLogic
+* [x] Create a `getDiscussion.ts` inside the `lambda/http`
+* [x] Create table for `discussion`
+* [x] Add `discussion` model
+* [x] Add `discussion` request model.
 - [x] Add create `discussion` lambda
 - [x] Remove `requests` folder and move request model inside the `discussion.ts` and fixed all import issues.
 - [x] Add `winston` package for logging

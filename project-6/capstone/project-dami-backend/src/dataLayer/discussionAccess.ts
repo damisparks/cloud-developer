@@ -21,9 +21,22 @@ export class DiscussionAccess {
 
     return discussion as DiscussionItem
   }
+
+  /**
+   * @returns all discussions
+   */
+  async getDiscussions(): Promise<DiscussionItem[]> {
+    const result = await this.docClient
+      .scan({
+        TableName: this.discussionTable,
+      })
+      .promise()
+    const items = result.Items
+    return items as DiscussionItem[]
+  }
 }
 
-// Add Dynamo DB ClientX
+// Add Dynamo DB Client
 function createDynamoDBClient(): DocumentClient {
   return new AWS.DynamoDB.DocumentClient()
 }
