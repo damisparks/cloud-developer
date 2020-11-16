@@ -18,3 +18,8 @@ export async function onCreateDiscussion(
     shortDescription: newDiscussionItem.shortDescription,
   })
 }
+
+// Get all discussions.
+export async function onGetAllDiscussions(): Promise<DiscussionItem[]> {
+  return await discussionAccess.getDiscussions()
+}
