@@ -1,7 +1,7 @@
 import * as uuid from 'uuid'
 import { DiscussionAccess } from '../dataLayer/discussionAccess'
 import { DiscussionRequest } from '../requests/DiscussionRequest'
-import { DiscussionItem } from '../lambda/models/DiscussionItem'
+import { DiscussionItem } from '../models/DiscussionItem'
 
 const discussionAccess = new DiscussionAccess()
 
@@ -11,7 +11,8 @@ export async function onCreateDiscussion(
 ): Promise<DiscussionItem> {
   const itemId = uuid.v4()
 
-  return discussionAccess.createDiscussion({
+  return await discussionAccess.createDiscussion({
+    userId: 'fakeuserid',
     discussionId: itemId,
     createdAt: new Date().toISOString(),
     title: newDiscussionItem.title,

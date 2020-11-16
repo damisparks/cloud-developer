@@ -27,6 +27,8 @@ Before using the project, kindly read the `LICENSE`
 
 ### DONE
 
+- [x] Add `winston` package for logging
+- [x] Add `utils` folder and `logger` to the project.
 - [x] Add `LICENSE` to the project.
 - [x] Add `uuid` package to the project.
 - [x] Create folder `src`

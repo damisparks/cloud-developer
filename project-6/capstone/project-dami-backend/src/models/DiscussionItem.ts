@@ -3,4 +3,5 @@ export interface DiscussionItem {
   shortDescription: string
   createdAt: string
   discussionId: string
+  userId: string
 }
