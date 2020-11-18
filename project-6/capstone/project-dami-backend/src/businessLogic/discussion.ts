@@ -1,6 +1,10 @@
 import * as uuid from 'uuid'
 import { DiscussionAccess } from '../dataLayer/discussionAccess'
-import { DiscussionItem, DiscussionRequest } from '../models/discussion'
+import {
+  DiscussionItem,
+  DiscussionRequest,
+  UpdateDiscussionItem,
+} from '../models/discussion'
 
 const discussionAccess = new DiscussionAccess()
 
@@ -22,4 +26,15 @@ export async function onCreateDiscussion(
 // Get all discussions.
 export async function onGetAllDiscussions(): Promise<DiscussionItem[]> {
   return await discussionAccess.getDiscussions()
+}
+
+// Update discussion by id.
+export async function onUpdateDiscussion(
+  discussionId: string,
+  toBeUpdatedDiscussion: UpdateDiscussionItem
+) {
+  return await discussionAccess.updateDiscussion(
+    discussionId,
+    toBeUpdatedDiscussion
+  )
 }

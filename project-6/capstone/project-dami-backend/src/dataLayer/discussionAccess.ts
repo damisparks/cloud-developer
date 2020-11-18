@@ -1,7 +1,9 @@
 import * as AWS from 'aws-sdk'
 import { DocumentClient } from 'aws-sdk/lib/dynamodb/document_client'
-import { DiscussionItem } from '../models/discussion'
+import { DiscussionItem, UpdateDiscussionItem } from '../models/discussion'
+import { createLogger } from '../utils/logger'
 
+const logger = createLogger('discussionAccess')
 export class DiscussionAccess {
   constructor(
     private readonly discussionTable = process.env.DISCUSSION_TABLE,
@@ -33,6 +35,32 @@ export class DiscussionAccess {
       .promise()
     const items = result.Items
     return items as DiscussionItem[]
+  }
+
+  // Update a single discussion.
+  async updateDiscussion(
+    discussionId: string,
+    updateDiscussionItem: UpdateDiscussionItem
+  ) {
+    logger.info(`to update discussionId :  ${discussionId}`)
+    await this.docClient
+      .update({
+        TableName: this.discussionTable,
+        Key: {
+          discussionId: discussionId,
+        },
+        UpdateExpression:
+          'set #title = :title, #shortDescription = :shortDescription',
+        ExpressionAttributeValues: {
+          ':title': updateDiscussionItem.title,
+          ':shortDescription': updateDiscussionItem.shortDescription,
+        },
+        ExpressionAttributeNames: {
+          '#title': 'title',
+          '#shortDescription': 'shortDescription',
+        },
+      })
+      .promise()
   }
 }
 

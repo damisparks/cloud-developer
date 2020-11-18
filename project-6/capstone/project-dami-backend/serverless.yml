@@ -36,6 +36,10 @@ custom:
       - name: DiscussionRequest
         contentType: application/json
         schema: ${file(models/create_discussion_request.json)}
+    models:
+      - name: DiscussionUpdate
+        contentType: application/json
+        schema: ${file(models/create_discussion_request.json)}
 
 functions:
   createDiscussion:
@@ -73,6 +77,8 @@ functions:
           documentation:
             summary: Get all discussions.
             description: Get all discussions.
+            requestModels: 
+              'application/json': DiscussionUpdate
     iamRoleStatementsName: getDiscussions-${self:provider.stage}-lambdaRole
     iamRoleStatements:
       - Effect: Allow
@@ -80,6 +86,30 @@ functions:
           - dynamodb:Scan
           - dynamodb:GetItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.DISCUSSION_TABLE}
+
+  updateDiscussion: 
+    name: ${self:service}-updateDiscussion-${opt:stage, self:provider.stage, 'dev'}
+    handler: src/lambda/http/updateDiscussion.handler
+    description: Update discussion by id
+    events:
+      - http:
+          method: patch
+          path: discussion/{discussionId}
+          cors: true
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Get all discussions.
+            description: Get all discussions.
+            requestModels:
+              'application/json': DiscussionUpdate
+    iamRoleStatementsName: getDiscussions-${self:provider.stage}-lambdaRole
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:GetItem
+          - dynamodb:UpdateItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.DISCUSSION_TABLE}
+    
 
 resources:
   Resources:

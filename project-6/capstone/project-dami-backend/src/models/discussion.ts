@@ -14,3 +14,12 @@ export interface DiscussionRequest {
   shortDescription: string
   createdAt: string
 }
+
+/**
+ * Fields in a request to update a single DISCUSSION item.
+ */
+
+export interface UpdateDiscussionItem {
+  title: string
+  shortDescription: string
+}
