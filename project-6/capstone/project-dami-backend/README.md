@@ -21,16 +21,24 @@ Before using the project, kindly read the `LICENSE`
 <!-- * None yet.  -->
 
 ### DONE
+
 - ## APIGateway
 - [x] API Created.
 
 - ## LAMBDA
-* [x] Add `getDiscussions` function in the dataLayer
+- ## LAMBDA
+
+* [x] Add `update_discussion_request.json` model for the update request
+* [x] Add `onUpdateDiscussion` function to the businessLogic.
+* [x] Add `updateDiscussion` function to the DiscussionAccess
+* [x] Add IamRole for the `updateDiscussions` lambda
+* [x] Add `updateDiscussion` lambda
 * [x] Add `onGetAllDiscussions` function in the businessLogic
 * [x] Create a `getDiscussion.ts` inside the `lambda/http`
 * [x] Create table for `discussion`
 * [x] Add `discussion` model
 * [x] Add `discussion` request model.
+
 - [x] Add create `discussion` lambda
 - [x] Remove `requests` folder and move request model inside the `discussion.ts` and fixed all import issues.
 - [x] Add `winston` package for logging
@@ -48,4 +56,3 @@ Before using the project, kindly read the `LICENSE`
 - [x] Add `requests` folder to encapsulate files for request fields.
 - [x] Add `discussionAccess` for handling dataLayer
 - [x] Add `onCreateDiscussion` function to the `discussion` on the `businessLogic` folder.
-

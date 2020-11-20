@@ -1,15 +1,18 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "discussion",
+  "title": "todo",
   "type": "object",
   "properties": {
-    "title": {
+    "name": {
       "type": "string"
     },
-    "shortDescription": {
+    "dueDate": {
       "type": "string"
+    },
+    "done": {
+      "type": "boolean"
     }
   },
-  "required": ["title", "shortDescription"],
+  "required": ["name", "dueDate", "done"],
   "additionalProperties": false
 }
