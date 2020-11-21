@@ -22,7 +22,7 @@ provider:
     minimumCompressionSize: 1024
 
   environment:
-    TODOS_TABLE: Todos-${self:provider.stage}
+    TODOS_TABLE: Capstone-Todos-${self:provider.stage}
     USER_ID_INDEX: UserIdIndex
     IMAGE_S3_BUCKET: damisparks-serverless-todo-app-images-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
@@ -34,11 +34,6 @@ provider:
         - 'xray:PutTelemetryRecords'
       Resource:
         - '*'
-    - Effect: Allow
-      Action:
-        - dynamodb:Scan
-        - dynamodb:PutItem
-      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
     - Effect: Allow
       Action:
         - dynamodb:Query
@@ -88,6 +83,12 @@ functions:
             description: Create a new todo
             requestModels:
               'application/json': TodoRequest
+    iamRoleStatementsName: CreateTodo-${self:provider.stage}-lambdaRole
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
 
   # UPDATE TODO FUNCTION
   UpdateTodo:
