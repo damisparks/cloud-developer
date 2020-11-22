@@ -58,7 +58,7 @@ functions:
   Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
 
-  # TODO: Configure this function
+  # GET TODO FUNCTION
   GetTodos:
     handler: src/lambda/http/getTodos.handler
     events:
